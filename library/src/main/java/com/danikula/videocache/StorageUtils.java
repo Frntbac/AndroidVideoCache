@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
+import java.io.IOException;
+
+
 import static android.os.Environment.MEDIA_MOUNTED;
 
 /**
