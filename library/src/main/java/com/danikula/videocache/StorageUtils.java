@@ -80,4 +80,39 @@ final class StorageUtils {
         }
         return appCacheDir;
     }
+
+    public static void cleanDirectory(File file) {
+        if (!file.exists()) {
+            return;
+        }
+        File[] contentFiles = file.listFiles();
+        if (contentFiles != null) {
+            for (File contentFile : contentFiles) {
+                try {
+                    delete(contentFile);
+                } catch (IOException e) {
+                    LOG.warn(e.getMessage());
+                }
+            }
+        }
+    }
+
+    private static void delete(File file) throws IOException {
+        if (file.isFile() && file.exists()) {
+            deleteOrThrow(file);
+        } else {
+            cleanDirectory(file);
+            deleteOrThrow(file);
+        }
+    }
+
+    private static void deleteOrThrow(File file) throws IOException {
+        if (file.exists()) {
+            boolean isDeleted = file.delete();
+            if (!isDeleted) {
+                throw new IOException(String.format("File %s can't be deleted", file.getAbsolutePath()));
+            }
+        }
+    }
+
 }
