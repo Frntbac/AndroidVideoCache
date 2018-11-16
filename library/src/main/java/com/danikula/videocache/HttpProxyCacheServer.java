@@ -219,7 +219,7 @@ public class HttpProxyCacheServer {
         }
     }
 
-    private void shutdownClients() {
+    public void shutdownClients() {
         synchronized (clientsLock) {
             for (HttpProxyCacheServerClients clients : clientsMap.values()) {
                 clients.shutdown();
